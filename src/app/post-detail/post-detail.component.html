@@ -1,0 +1,14 @@
+<div class="container">
+  <h2>User Detail</h2>
+  <div *ngIf="postDetail?.postId">
+    <p><strong>Post ID:</strong> {{ postDetail.postId }}</p>
+    <label for="title"><strong>Title:</strong></label>
+    <input type="text" id="title" [(ngModel)]="editedTitle" (input)="onChange()">
+    <label for="content"><strong>Content:</strong></label>
+    <input type="text" id="content" [(ngModel)]="editedContent" (input)="onChange()">
+    <p><strong>Creation Date:</strong> {{ postDetail.creationDate}}</p>
+    <button class="save-button" (click)="saveChanges()" [disabled]="!isChanged">Save Changes</button>
+    <p><strong>Changes:</strong> {{ changes }}</p>
+    <p id="changeStatus"><strong>{{ saveStatus }}</strong></p>
+  </div>
+</div>

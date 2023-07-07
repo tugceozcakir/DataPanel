@@ -1,0 +1,18 @@
+<div class="mat-dialog-container">
+    <h2>Add Category</h2>
+    <form [formGroup]="categoryForm" (ngSubmit)="addCategory()">
+      <div>
+        <label for="name">Name</label>
+        <input type="text" id="name" formControlName="name">
+      </div>
+      <div>
+        <label for="creationDate">Creation Date</label>
+        <input type="date" id="creationDate" formControlName="creationDate" [value]="getCurrentDate()">
+      </div> 
+      <div class="buttons-container">
+        <button type="submit" [disabled]="categoryForm.invalid">Add</button>
+        <button type="button" (click)="cancel()">Cancel</button>
+      </div>
+    </form>
+  </div>
+  

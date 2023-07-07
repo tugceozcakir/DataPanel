@@ -1,0 +1,21 @@
+[{
+    "categoryId": 1,
+    "name": "Travel",
+    "creation_date": "8/27/2022"
+  }, {
+    "categoryId": 2,
+    "name": "Fashion",
+    "creation_date": "6/3/2023"
+  }, {
+    "categoryId": 3,
+    "name": "Science",
+    "creation_date": "3/3/2022"
+  }, {
+    "categoryId": 4,
+    "name": "Technology",
+    "creation_date": "6/15/2021"
+  }, {
+    "categoryId": 5,
+    "name": "Sports",
+    "creation_date": "12/19/2021"
+  }]

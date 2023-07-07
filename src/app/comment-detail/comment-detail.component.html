@@ -1,0 +1,15 @@
+<div class="container">
+  <h2>Comment Detail</h2>
+  <div *ngIf="commentDetail?.postId">
+    <p><strong>Comment ID:</strong> {{ commentDetail.commentId }}</p>
+    <p><strong>Post ID:</strong> {{ commentDetail.postId }}</p>
+    <p><strong>User ID:</strong> {{ commentDetail.userId }}</p>
+    <label for="comment"><strong>Comment:</strong></label>
+    <input type="comment" id="comment" [(ngModel)]="editedComment" (input)="onChange()">
+    <p><strong>Creation Date:</strong> {{ commentDetail.creationDate}}</p>
+    <p><strong>Is Confirmed:</strong> {{ commentDetail.isConfirmed}}</p>
+    <button class="save-button" (click)="saveChanges()" [disabled]="!isChanged">Save Changes</button>
+    <p><strong>Changes:</strong> {{ changes }}</p>
+    <p id="changeStatus"><strong>{{ saveStatus }}</strong></p>
+  </div>
+</div>

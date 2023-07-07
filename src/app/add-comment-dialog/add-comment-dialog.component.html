@@ -1,0 +1,33 @@
+<div class="mat-dialog-container">
+    <h2>Add Comment</h2>
+    <form [formGroup]="commentForm" (ngSubmit)="addComment()">
+      <div>
+        <label for="postId">Post ID</label>
+        <input type="text" id="postId" formControlName="postId" [class.error]="postIdInvalid">
+        <div class="error-message" *ngIf="postIdInvalid">Please enter a valid integer value for Post ID</div>
+      </div>
+      <div>
+        <label for="userId">User ID</label>
+        <input type="text" id="userId" formControlName="userId" [class.error]="userIdInvalid">
+        <div class="error-message" *ngIf="userIdInvalid">Please enter a valid integer value for User ID</div>
+      </div>
+      <div>
+        <label for="comment">Comment</label>
+        <textarea id="comment" formControlName="comment"></textarea>
+      </div>
+      <div>
+        <label for="creationDate">Creation Date</label>
+        <input type="date" id="creationDate" formControlName="creationDate" [value]="getCurrentDate()">
+      </div>      
+      <div>
+        <label for="isConfirmed">Is Confirmed</label>
+        <input type="checkbox" id="isConfirmed" formControlName="isConfirmed">
+      </div>
+      <div class="buttons-container">
+        <button type="submit" [disabled]="commentForm.invalid">Add</button>
+        <button type="button" (click)="cancel()">Cancel</button>
+      </div>
+    </form>
+  </div>
+  
+  

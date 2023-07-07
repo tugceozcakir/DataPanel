@@ -1,0 +1,16 @@
+<div class="container">
+  <h2>Category Detail</h2>
+  <div *ngIf="categoryDetail?.categoryId">
+    <p><strong>Category ID:</strong> {{ categoryDetail.categoryId }}</p>
+    <label for="categoryName"><strong>Category Name:</strong></label>
+    <input type="text" id="categoryName" [(ngModel)]="editedCategoryName" (input)="onChange()">
+    <p><strong>Creation Date:</strong> {{ categoryDetail.creationDate | date }}</p>
+    <p>
+      <a [routerLink]="['/posts']" [queryParams]="{ categoryId: categoryDetail.categoryId, filter: true }">View Posts</a>
+      <span class="post-count">(Post Count: {{ postCount }})</span>
+    </p>
+    <button class="save-button" (click)="saveChanges()" [disabled]="!isChanged">Save Changes</button>
+    <p><strong>Changes:</strong> {{ changes }}</p>
+    <p id="changeStatus"><strong>{{ saveStatus }}</strong></p>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+<div class="container">
+  <h2>User Detail</h2>
+  <div *ngIf="userDetails?.userId">
+    <p><strong>User ID:</strong> {{ userDetails.userId }}</p>
+    <label for="username"><strong>Username:</strong></label>
+    <input type="text" id="username" [(ngModel)]="editedUsername" (input)="onChange()">
+    <label for="email"><strong>Email:</strong></label>
+    <input type="email" id="email" [(ngModel)]="editedEmail" (input)="onChange()">
+    <button class="save-button" (click)="saveChanges()" [disabled]="!isChanged">Save Changes</button>
+    <p><strong>Changes:</strong> {{ changes }}</p>
+    <p id="changeStatus"><strong>{{ saveStatus }}</strong></p>
+  </div>
+</div>

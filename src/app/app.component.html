@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1>HOMEWORK02</h1>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat&family=Noto+Serif:wght@800&display=swap" rel="stylesheet">
+
+<div class="radio-inputs">
+  <label class="radio">
+    <input type="radio" name="radio" (click)="navigateTo('users')" checked>
+    <span class="name">Users</span>
+  </label>
+  <label class="radio">
+    <input type="radio" name="radio" (click)="navigateTo('posts')">
+    <span class="name">Posts</span>
+  </label>
+  <label class="radio">
+    <input type="radio" name="radio" (click)="navigateTo('comments')">
+    <span class="name">Comments</span>
+  </label>
+  <label class="radio">
+    <input type="radio" name="radio" (click)="navigateTo('categories')">
+    <span class="name">Categories</span>
+  </label>
+</div>
+
+<router-outlet></router-outlet>
+</body>
+</html>
+

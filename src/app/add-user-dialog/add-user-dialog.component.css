@@ -1,0 +1,54 @@
+.mat-dialog-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin: 10px;
+}
+
+h2 {
+  margin-bottom: 1rem;
+  color: #3C6F9C;
+  font-size: 24px;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.buttons-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.buttons-container button {
+  flex-basis: 45%;
+  padding: 0.5rem 1rem;
+  margin-bottom: 0.5rem;
+  background-color: #3C6F9C;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.buttons-container button:hover {
+  background-color: #3C6F9C;
+}
+
+.buttons-container button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

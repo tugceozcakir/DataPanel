@@ -1,0 +1,53 @@
+<!-- Filter field -->
+<div class="container">
+  <div class="filter-container">
+    <div>
+      <label for="userId">User ID:</label>
+      <input type="number" id="userId" [(ngModel)]="filter.userId">
+    </div>
+    <div>
+      <label for="postId">Post ID:</label>
+      <input type="number" id="postId" [(ngModel)]="filter.postId">
+    </div>
+    <div>
+      <label for="categoryId">Category ID:</label>
+      <input type="number" id="categoryId" [(ngModel)]="filter.categoryId">
+    </div>
+    <button (click)="applyFilters(filter.userId, filter.postId, filter.categoryId)">Filter</button>
+  </div>
+</div>
+
+<button id="add-button" (click)="addPost()">Add Post</button>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Title</th>
+      <th>View Count</th>
+      <th>Details</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let post of displayedPosts; let i = index">
+      <td>{{ post.postId }}</td>
+      <td>{{ post.title }}</td>
+      <td>{{ post.viewCount }}</td>
+      <td><a [routerLink]="['/post-detail', post.postId]">Detail</a></td>
+      <td>
+        <button id="remove" class="tooltip" (click)="deletePost(i)">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20" height="25" width="25">
+            <path fill="#6361D9" d="M8.78842 5.03866C8.86656 4.96052 8.97254 4.91663 9.08305 4.91663H11.4164C11.5269 4.91663 11.6329 4.96052 11.711 5.03866C11.7892 5.11681 11.833 5.22279 11.833 5.33329V5.74939H8.66638V5.33329C8.66638 5.22279 8.71028 5.11681 8.78842 5.03866ZM7.16638 5.74939V5.33329C7.16638 4.82496 7.36832 4.33745 7.72776 3.978C8.08721 3.61856 8.57472 3.41663 9.08305 3.41663H11.4164C11.9247 3.41663 12.4122 3.61856 12.7717 3.978C13.1311 4.33745 13.333 4.82496 13.333 5.33329V5.74939H15.5C15.9142 5.74939 16.25 6.08518 16.25 6.49939C16.25 6.9136 15.9142 7.24939 15.5 7.24939H15.0105L14.2492 14.7095C14.2382 15.2023 14.0377 15.6726 13.6883 16.0219C13.3289 16.3814 12.8414 16.5833 12.333 16.5833H8.16638C7.65805 16.5833 7.17054 16.3814 6.81109 16.0219C6.46176 15.6726 6.2612 15.2023 6.25019 14.7095L5.48896 7.24939H5.5C5.08579 7.24939 4.75 6.9136 4.75 6.49939C4.75 6.08518 5.08579 5.74939 5.5 5.74939H7.16638ZM9.08305 6.91663H11.4164V14.2494H9.08305V6.91663ZM7.83305 6.91663V14.2494H6.08305V6.91663H7.83305Z" clip-rule="evenodd" fill-rule="evenodd"></path>
+          </svg>
+          <span class="tooltiptext">Remove</span>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="previousOrNextButton">
+  <button (click)="previousPage()" [disabled]="!canPrevious()">Previous</button>
+  <button id="nextButton" (click)="nextPage()" [disabled]="!canNext()">Next Page</button>
+</div>

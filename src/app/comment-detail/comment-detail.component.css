@@ -1,0 +1,42 @@
+.container {
+    margin-left: 20px;
+  }
+  
+  #changeStatus {
+    color: green;
+  }
+  
+  .save-button {
+    padding: 8px 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .save-button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+  
+  input[type="comment"] {
+    display: block;
+    width: 70%;
+    padding: 10px;
+    margin-bottom: 30px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 14px;
+  }
+  
+  input[type="comment"]:focus {
+    outline: none;
+    border-color: #4CAF50;
+  }
+  
+  p {
+    margin-bottom: 30px;
+  }
+  

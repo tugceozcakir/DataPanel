@@ -32,12 +32,14 @@ export class CategoryListComponent implements OnInit {
   }
 
   updateDisplayedCategories(): void {
+    // Calculate the start and end index for the displayed categories based on the current page and page size
     const startIndex = (this.currentPage - 1) * this.pageSize;
     const endIndex = startIndex + this.pageSize;
     this.displayedCategories = this.categories.slice(startIndex, endIndex);
   }
 
   nextPage(): void {
+    // Move to the next page if it exists
     const totalPages = Math.ceil(this.totalItems / this.pageSize);
     if (this.currentPage < totalPages) {
       this.currentPage++;
@@ -46,11 +48,13 @@ export class CategoryListComponent implements OnInit {
   }
 
   canNext(): boolean {
+    // Check if there is a next page
     const totalPages = Math.ceil(this.totalItems / this.pageSize);
     return this.currentPage < totalPages;
   }
 
   previousPage(): void {
+    // Move to the previous page if it exists
     if (this.currentPage > 1) {
       this.currentPage--;
       this.updateDisplayedCategories();
@@ -58,18 +62,20 @@ export class CategoryListComponent implements OnInit {
   }
 
   canPrevious(): boolean {
+    // Check if there is a previous page
     return this.currentPage > 1;
   }
 
   deleteCategory(index: number): void {
-    const deletedCategory = this.displayedCategories[index]; //Deleted item
-    const categoryIndex = this.categories.indexOf(deletedCategory); //Find category index
-  
+    // Delete a category from the displayedCategories array and update the totalItems count
+    const deletedCategory = this.displayedCategories[index];
+    const categoryIndex = this.categories.indexOf(deletedCategory);
+
     if (categoryIndex !== -1) {
-      this.categories.splice(categoryIndex, 1); //Remove category from categories array
-      this.totalItems--; //Reduce total item
-  
-      //Update displayedCategories
+      this.categories.splice(categoryIndex, 1);
+      this.totalItems--;
+
+      // Update displayedCategories
       const startIndex = (this.currentPage - 1) * this.pageSize;
       const endIndex = startIndex + this.pageSize;
       this.displayedCategories = this.categories.slice(startIndex, endIndex);
@@ -82,10 +88,12 @@ export class CategoryListComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result: Category) => {
-      //Add new category to list
       if (result) {
+        // Generate a new categoryId for the new category
         const lastCategoryId = this.categories.length > 0 ? this.categories[this.categories.length - 1].categoryId : 0;
         result.categoryId = lastCategoryId + 1;
+
+        // Add the new category to the categories array and update the totalItems count
         this.categories.push(result);
         this.totalItems++;
         this.updateDisplayedCategories();

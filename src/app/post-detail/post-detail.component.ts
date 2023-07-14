@@ -36,6 +36,7 @@ export class PostDetailComponent implements OnInit {
   }
 
   fetchPostDetails() {
+    // Fetch the post details based on the postId
     if (this.postId !== null) {
       this.postService.getPosts().subscribe(
         (data) => {
@@ -57,6 +58,7 @@ export class PostDetailComponent implements OnInit {
   }
   
   saveChanges() {
+    // Save the changes made to the postdetails
     this.postDetail.title = this.editedTitle;
     this.postDetail.content = this.editedContent;
     this.isChanged = false;
@@ -76,6 +78,7 @@ export class PostDetailComponent implements OnInit {
   }
 
   onChange() {
+    // Check if any of the post details have been changed
     const isTitleChanged = this.initialPostDetails.title !== this.editedTitle;
     const isContentChanged = this.initialPostDetails.content !== this.editedContent;
     const isPostIdChanged = this.initialPostDetails.postId.toString() !== this.editedPostId;

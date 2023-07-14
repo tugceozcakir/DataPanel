@@ -11,17 +11,18 @@ export class CommentService {
   
   constructor(private http: HttpClient) {}
 
+  //Get comments func.
   getComments(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl);
   }
 
   updateComment(commentDetail: any): Observable<any> {
-    // Güncelleme işlemi yerine burada veriyi döndürüyoruz
+    // Return data here instead of update operation
     return of(commentDetail);
   }
 
   addComment(newComment: any): Observable<any> {
-    // Kullanıcı ekleme işlemi yerine burada veriyi döndürüyoruz
+    // Return data here instead of adding user
     return of(newComment);
   }
 }

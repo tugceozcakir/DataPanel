@@ -30,6 +30,7 @@ export class CategoryDetailComponent implements OnInit {
   }
 
   ngOnInit() {
+    //Get the categoryId parameter using ActivatedRoute
     this.categoryId = this.route.snapshot.paramMap.get('categoryId');
     console.log('Category ID:', this.categoryId);
     this.fetchCategoryDetails();
@@ -37,21 +38,27 @@ export class CategoryDetailComponent implements OnInit {
 
   fetchCategoryDetails() {
     if (this.categoryId !== null) {
+      //Retrieve category details from the CategoryService
       this.categoryService.getCategory().subscribe(
         (categories: Category[]) => {
           console.log('Category Data:', categories);
+          //Find the category with the desired categoryId
           const category = categories.find((c) => c.categoryId === parseInt(this.categoryId!));
           if (category) {
+            //Update the category details
             this.categoryDetail = { ...category };
             this.initialCategoryDetails = { ...category };
             this.editedCategoryName = category.name;
             this.editedCategoryId = category.categoryId.toString();
   
+            //Convert the creation_date string to a specific format using DatePipe
             const creationDate = new Date(this.categoryDetail.creation_date);
             this.editedCreationDate = this.datePipe.transform(creationDate, 'MM/dd/yyyy');
 
+            //Fetch the post count for the specific category
             this.fetchPostCount();
           } else {
+            //Set appropriate state when category is not found
             this.categoryDetail = new Category();
             this.initialCategoryDetails = new Category();
           }
@@ -63,8 +70,8 @@ export class CategoryDetailComponent implements OnInit {
     }
   }
   
-  
   fetchPostCount() {
+    //Retrieve the post count for the category from the CategoryService
     this.categoryService.getPostCountByCategoryId(this.categoryDetail.categoryId.toString()).subscribe(
       (count: number) => {
         this.postCount = count;
@@ -75,30 +82,33 @@ export class CategoryDetailComponent implements OnInit {
     );
   }
 
-saveChanges() {
-  this.categoryDetail.name = this.editedCategoryName;
-  this.categoryDetail.categoryId = parseInt(this.editedCategoryId);
+  saveChanges() {
+    //Update the category details
+    this.categoryDetail.name = this.editedCategoryName;
+    this.categoryDetail.categoryId = parseInt(this.editedCategoryId);
 
-  this.isChanged = false;
-  this.changes = `Category ID: ${this.editedCategoryId}, Category Name: ${this.editedCategoryName}, Creation Date: ${this.editedCreationDate ? this.datePipe.transform(this.editedCreationDate, 'dd/MM/yyyy') : ''}`;
+    this.isChanged = false;
+    this.changes = `Category ID: ${this.editedCategoryId}, Category Name: ${this.editedCategoryName}, Creation Date: ${this.editedCreationDate ? this.datePipe.transform(this.editedCreationDate, 'dd/MM/yyyy') : ''}`;
 
-  this.categoryService.updateCategory(this.categoryDetail).subscribe(
-    (response) => {
-      console.log('Category details successfully updated:', response);
-      this.saveStatus = 'Changes saved successfully!';
-    },
-    (error) => {
-      console.error('Error while saving category changes:', error);
-      this.saveStatus = 'Error saving changes.';
-    }
-  );
-}
+    //Save the category details
+    this.categoryService.updateCategory(this.categoryDetail).subscribe(
+      (response) => {
+        console.log('Category details successfully updated:', response);
+        this.saveStatus = 'Changes saved successfully!';
+      },
+      (error) => {
+        console.error('Error while saving category changes:', error);
+        this.saveStatus = 'Error saving changes.';
+      }
+    );
+  }
 
   onChange() {
+    //Check if the relevant fields have changed
     const isNameChanged = this.initialCategoryDetails.name !== this.editedCategoryName;
     const isIdChanged = this.initialCategoryDetails.categoryId !== parseInt(this.editedCategoryId);
 
-    // Compare dates by creating a new Date object
+    //Compare dates by creating a new Date object
     const initialCreationDate = new Date(this.initialCategoryDetails.creation_date);
     const editedCreationDate = new Date(this.editedCreationDate);
     const isCreationDateChanged = initialCreationDate.getTime() !== editedCreationDate.getTime();

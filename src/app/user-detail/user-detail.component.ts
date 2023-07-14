@@ -33,6 +33,7 @@ export class UserDetailComponent implements OnInit {
   }
 
   fetchUserDetails() {
+    // Fetch the user details based on the userId
     const userIdParam = this.route.snapshot.paramMap.get('userId');
     if (userIdParam !== null) {
       this.userId = +userIdParam;
@@ -63,6 +64,7 @@ export class UserDetailComponent implements OnInit {
   }
 
   subscribeToNewUser() {
+    // Subscribe to new user event to listen for changes in the user details
     this.userService.getNewUser().subscribe((user: User) => {
       if (user.userId === this.userId) {
         this.userDetails = { ...user };
@@ -75,6 +77,7 @@ export class UserDetailComponent implements OnInit {
   }
 
   saveChanges() {
+    // Save the changes made to the user details
     this.userDetails.username = this.editedUsername;
     this.userDetails.email = this.editedEmail;
     this.isChanged = false;
@@ -90,14 +93,13 @@ export class UserDetailComponent implements OnInit {
         this.saveStatus = 'Error saving changes.';
       }
     );
-    
   }
 
-onChange() {
-  const isUsernameChanged = this.initialUserDetails.username !== this.editedUsername;
-  const isEmailChanged = this.initialUserDetails.email !== this.editedEmail;
-  const isUserIdChanged = this.initialUserDetails.userId.toString() !== this.editedUserId;
-  this.isChanged = isUsernameChanged || isEmailChanged || isUserIdChanged;
-}
-
+  onChange() {
+    // Check if any of the user details have been changed
+    const isUsernameChanged = this.initialUserDetails.username !== this.editedUsername;
+    const isEmailChanged = this.initialUserDetails.email !== this.editedEmail;
+    const isUserIdChanged = this.initialUserDetails.userId.toString() !== this.editedUserId;
+    this.isChanged = isUsernameChanged || isEmailChanged || isUserIdChanged;
+  }
 }

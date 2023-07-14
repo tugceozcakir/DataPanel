@@ -32,6 +32,7 @@ export class CommentDetailComponent implements OnInit {
   }
 
   ngOnInit() {
+    //Get the commentId parameter using route
     this.commentId = this.route.snapshot.paramMap.get('id');
     console.log('Comment ID:', this.commentId);
     this.fetchCommentDetails();
@@ -39,16 +40,21 @@ export class CommentDetailComponent implements OnInit {
 
   fetchCommentDetails() {
     if (this.commentId !== null) {
+      // Retrieve comment details from the service
       this.commentService.getComments().subscribe(
         (data: Comment[]) => {
           console.log('Comments Data:', data);
+          //Find the comment with the desired commentId
           this.commentDetail = data.find((comment) => comment.commentId === parseInt(this.commentId!)) || new Comment();
           this.editedCommentId = this.commentDetail.commentId.toString();
           this.editedPostId = this.commentDetail.postId.toString();
           this.editedUserId = this.commentDetail.userId.toString();
           this.editedComment = this.commentDetail.comment;
+          
+          //Convert the creationDate string to a specific format using pipe
           const creationDate = new Date(this.commentDetail.creationDate);
           this.editedCreationDate = this.datePipe.transform(creationDate, 'dd/MM/yyyy');
+
           this.initialCommentDetails = { ...this.commentDetail };
         },
         (error) => {
@@ -59,14 +65,16 @@ export class CommentDetailComponent implements OnInit {
   }
 
   saveChanges() {
+    //Update the comment details
     this.commentDetail.commentId = parseInt(this.editedCommentId);
     this.commentDetail.postId = parseInt(this.editedPostId);
     this.commentDetail.userId = parseInt(this.editedUserId);
     this.commentDetail.comment = this.editedComment;
     this.isChanged = false;
 
-    this.changes = `Comment ID: ${this.editedCommentId}, Post ID: ${this.editedPostId}, User ID: ${this.editedUserId}, Comment: ${this.editedComment}`;
+    this.changes = `Comment ID: ${this.editedCommentId}, Post ID: ${this.editedPostId}, User ID: ${this.editedUserId}, Comment: ${this.editedComment}, Creation Date: ${this.editedCreationDate}`;
 
+    //Save the comment details
     this.commentService.updateComment(this.commentDetail).subscribe(
       (response) => {
         console.log('Comment details updated successfully:', response);
@@ -80,10 +88,12 @@ export class CommentDetailComponent implements OnInit {
   }
 
   onChange() {
+    //Check if the relevant fields have changed
     const isCommentIdChanged = this.initialCommentDetails.commentId.toString() !== this.editedCommentId;
     const isPostIdChanged = this.initialCommentDetails.postId.toString() !== this.editedPostId;
     const isUserIdChanged = this.initialCommentDetails.userId.toString() !== this.editedUserId;
     const isCommentChanged = this.initialCommentDetails.comment !== this.editedComment;
+
     this.isChanged = isCommentIdChanged || isPostIdChanged || isUserIdChanged || isCommentChanged;
   }
 }

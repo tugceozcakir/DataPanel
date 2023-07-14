@@ -38,17 +38,10 @@ getComments(): Observable<any[]> {
   return this.http.get<any[]>(this.commentsUrl);
 }
 
-  updateUser(userDetails: User): Observable<User> {
-    //Update and return data
-    const index = this.users.findIndex(user => user.userId === userDetails.userId);
-    if (index !== -1) {
-      this.users[index] = userDetails;
-      return of(userDetails);
-    } else {
-      console.error('User not found');
-      return throwError('User not found');
-    }
-  }
+updateUser(userDetails: User): Observable<User> {
+  return of(userDetails);
+
+}
 
   addUser(newUser: User): Observable<User> {
     //Update and return data

@@ -20,6 +20,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AddPostDialogComponent } from './add-post-dialog/add-post-dialog.component';
 import { AddCommentDialogComponent } from './add-comment-dialog/add-comment-dialog.component';
 import { AddCategoryDialogComponent } from './add-category-dialog/add-category-dialog.component';
+import { DatePipe } from '@angular/common';
 
 
 @NgModule({
@@ -48,7 +49,7 @@ import { AddCategoryDialogComponent } from './add-category-dialog/add-category-d
     MatDialogModule,
     ReactiveFormsModule,
   ],
-  providers: [MatDialog],
+  providers: [MatDialog, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

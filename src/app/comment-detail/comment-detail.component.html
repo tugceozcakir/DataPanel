@@ -1,13 +1,17 @@
 <div class="container">
   <h2>Comment Detail</h2>
   <div *ngIf="commentDetail?.postId">
-    <p><strong>Comment ID:</strong> {{ commentDetail.commentId }}</p>
-    <p><strong>Post ID:</strong> {{ commentDetail.postId }}</p>
-    <p><strong>User ID:</strong> {{ commentDetail.userId }}</p>
+    <label for="commentId"><strong>Comment ID:</strong></label>
+    <input type="text" id="commentId" [(ngModel)]="editedCommentId" (input)="onChange()">
+    <label for="postId"><strong>Post ID:</strong></label>
+    <input type="text" id="postId" [(ngModel)]="editedPostId" (input)="onChange()">
+    <label for="userId"><strong>User ID:</strong></label>
+    <input type="text" id="userId" [(ngModel)]="editedUserId" (input)="onChange()">
     <label for="comment"><strong>Comment:</strong></label>
-    <input type="comment" id="comment" [(ngModel)]="editedComment" (input)="onChange()">
-    <p><strong>Creation Date:</strong> {{ commentDetail.creationDate}}</p>
-    <p><strong>Is Confirmed:</strong> {{ commentDetail.isConfirmed}}</p>
+    <input type="text" id="comment" [(ngModel)]="editedComment" (input)="onChange()">
+    <label><strong>Creation Date:</strong></label>
+    <input type="text" id="creationDate" [(ngModel)]="editedCreationDate" (input)="onChange()">
+    <p><strong>Is Confirmed:</strong> {{ commentDetail.isConfirmed }}</p>
     <button class="save-button" (click)="saveChanges()" [disabled]="!isChanged">Save Changes</button>
     <p><strong>Changes:</strong> {{ changes }}</p>
     <p id="changeStatus"><strong>{{ saveStatus }}</strong></p>

@@ -10,26 +10,28 @@ import { User } from '../models/user.model';
 })
 export class UserDetailComponent implements OnInit {
   userId: number | null;
-  userDetails: User = new User(); 
+  userDetails: User = new User();
   isChanged: boolean = false;
 
-  initialUserDetails: User = new User(); //Initial user details
+  initialUserDetails: User = new User(); // Initial user details
   editedUsername: string = '';
   editedEmail: string = '';
-  changes: string = ''; //Changes
-  saveStatus: string = ''; //Save status
+  editedUserId: string = '';
+  changes: string = ''; // Changes
+  saveStatus: string = ''; // Save status
 
   constructor(
     private route: ActivatedRoute,
-    private userService: UserService
+    private userService: UserService,
   ) {
     this.userId = null;
   }
 
   ngOnInit() {
     this.fetchUserDetails();
-    this.subscribeToNewUser(); //To listen to new users
+    this.subscribeToNewUser(); // To listen to new users
   }
+
   fetchUserDetails() {
     const userIdParam = this.route.snapshot.paramMap.get('userId');
     if (userIdParam !== null) {
@@ -41,8 +43,9 @@ export class UserDetailComponent implements OnInit {
           } else {
             this.userDetails = data || new User();
           }
-          
+
           if (this.userDetails.userId !== undefined) {
+            this.editedUserId = this.userDetails.userId.toString();
             this.editedUsername = this.userDetails.username;
             this.editedEmail = this.userDetails.email;
             this.initialUserDetails = { ...this.userDetails };
@@ -58,42 +61,43 @@ export class UserDetailComponent implements OnInit {
       this.userId = null;
     }
   }
-  
+
   subscribeToNewUser() {
     this.userService.getNewUser().subscribe((user: User) => {
       if (user.userId === this.userId) {
-        //Details of the newly added user
         this.userDetails = { ...user };
+        this.editedUserId = this.userDetails.userId.toString();
         this.editedUsername = this.userDetails.username;
         this.editedEmail = this.userDetails.email;
         this.initialUserDetails = { ...this.userDetails };
       }
     });
   }
-  
-  //Save edited values to userDetails object
+
   saveChanges() {
     this.userDetails.username = this.editedUsername;
     this.userDetails.email = this.editedEmail;
     this.isChanged = false;
 
-    //Update the changes to show the changes
-    this.changes = `Username: ${this.editedUsername}, Email: ${this.editedEmail}`;
+    this.changes = `User ID: ${this.editedUserId}, Username: ${this.editedUsername}, Email: ${this.editedEmail}`;
 
-    //Save changes using UserService
     this.userService.updateUser(this.userDetails).subscribe(
       (response) => {
         this.saveStatus = 'Changes saved successfully!';
       },
       (error) => {
+        console.error('Error saving changes:', error);
         this.saveStatus = 'Error saving changes.';
       }
     );
+    
   }
 
-  onChange() {
-    const isUsernameChanged = this.initialUserDetails.username !== this.editedUsername;
-    const isEmailChanged = this.initialUserDetails.email !== this.editedEmail;
-    this.isChanged = isUsernameChanged || isEmailChanged;
-  }
+onChange() {
+  const isUsernameChanged = this.initialUserDetails.username !== this.editedUsername;
+  const isEmailChanged = this.initialUserDetails.email !== this.editedEmail;
+  const isUserIdChanged = this.initialUserDetails.userId.toString() !== this.editedUserId;
+  this.isChanged = isUsernameChanged || isEmailChanged || isUserIdChanged;
+}
+
 }

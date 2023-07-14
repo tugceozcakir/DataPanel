@@ -1,7 +1,8 @@
 <div class="container">
   <h2>User Detail</h2>
   <div *ngIf="userDetails?.userId">
-    <p><strong>User ID:</strong> {{ userDetails.userId }}</p>
+    <label for="userId"><strong>User ID:</strong></label>
+    <input type="text" id="userId" [(ngModel)]="editedUserId" (input)="onChange()">
     <label for="username"><strong>Username:</strong></label>
     <input type="text" id="username" [(ngModel)]="editedUsername" (input)="onChange()">
     <label for="email"><strong>Email:</strong></label>

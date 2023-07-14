@@ -1,10 +1,12 @@
 <div class="container">
   <h2>Category Detail</h2>
   <div *ngIf="categoryDetail?.categoryId">
-    <p><strong>Category ID:</strong> {{ categoryDetail.categoryId }}</p>
+    <label for="categoryId"><strong>Category ID:</strong></label>
+    <input type="text" id="categoryId" [(ngModel)]="editedCategoryId" (input)="onChange()">
     <label for="categoryName"><strong>Category Name:</strong></label>
     <input type="text" id="categoryName" [(ngModel)]="editedCategoryName" (input)="onChange()">
-    <p><strong>Creation Date:</strong> {{ categoryDetail.creationDate | date }}</p>
+    <label for="creationDate"><strong>Creation Date:</strong></label>
+    <input type="text" id="creationDate" [(ngModel)]="editedCreationDate" (input)="onChange()">
     <p>
       <a [routerLink]="['/posts']" [queryParams]="{ categoryId: categoryDetail.categoryId, filter: true }">View Posts</a>
       <span class="post-count">(Post Count: {{ postCount }})</span>
